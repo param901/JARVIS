@@ -1,0 +1,168 @@
+import datetime
+import os
+import time
+import webbrowser
+
+import pyttsx3
+import speech_recognition as sr
+import wikipedia
+
+
+
+
+chrome_1 = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
+
+engine = pyttsx3.init('sapi5')
+voices = engine.getProperty('voices')
+
+engine.setProperty('voice', voices[0].id)
+
+
+def speak(audio):
+    engine.say(audio)
+    engine.runAndWait()
+
+
+def wishMe():
+    hour = int(datetime.datetime.now().hour)
+    if hour >= 4 and hour < 12:
+        speak("good morning!")
+    elif hour >= 12 and hour < 18:
+        speak("good afternoon!")
+    else:
+        speak("good evening!")
+    speak("i am Jarvis ,Mister Param Nainani's personal assistant ")
+
+
+def takeCommand():
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Listening. . .")
+        r.phrase_threshold = 0.3
+        audio = r.listen(source)
+
+    try:
+        print("recognising . . .")
+        query = r.recognize_google(audio, language='en-in')
+        print(f"User said: {query}\n")
+    except Exception as e:
+        print(e)
+        print("say that again please ...")
+        return"None"
+    time.sleep(10)
+    return query
+
+
+if __name__ == "__main__":
+    wishMe()
+    while True:
+        # if 1:
+        query = takeCommand().lower()
+
+        if'wikipedia' in query:
+            speak("searching wikipedia . . . ")
+            query = query.replace("wikipedia", "")
+            results = wikipedia.summary(query, sentences=5)
+            speak("According to wikipedia")
+            print(results)
+            speak(results)
+        elif 'who created you' in query:
+            print("Mr. Param Nainani created me")
+            speak("Mister Param Nainani created me")
+        elif 'open stack overflow' in query:
+            print("executing. . .")
+            webbrowser.get(chrome_1).open("stackoverflow.com")
+        elif 'open click' in query:
+            print("executing. . .")
+            webbrowser.get(chrome_1).open("klikflik.com")
+        elif'open facebook' in query:
+            print("executing. . .")
+            webbrowser.get(chrome_1).open("facebook.com")
+        elif 'open baidu' in query:
+            print("executing. . .")
+            webbrowser.get(chrome_1).open("baidu.com")
+        elif 'open twitter' in query:
+            print("executing. . .")
+            webbrowser.get(chrome_1).open("twitter.com")
+        elif'open amazon' in query:
+            print("executing. . .")
+            webbrowser.get(chrome_1).open("amazon.com")
+        elif 'open flipkart' in query:
+            print("executing. . .")
+            webbrowser.get(chrome_1).open("flipkart.com")
+        elif 'open play store' in query:
+            print("executing. . .")
+            webbrowser.get(chrome_1).open("play.google.com")
+        elif'open snapdeal' in query:
+            print("executing. . .")
+            webbrowser.get(chrome_1).open("snapdeal.com")
+
+        elif 'open new window' in query:
+            print("executing. . .")
+            code = "C:\\Users\\bhart\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
+            os.startfile(code)
+        elif 'open zoom' in query:
+            print("executing. . .")
+            code = "C:\\Users\\bhart\\AppData\\Roaming\\Zoom\\bin\\Zoom.exe"
+            os.startfile(code)
+        elif 'open among us' in query:
+            print("executing. . .")
+            code = "C:\\Users\\bhart\\OneDrive\\Desktop\\Among.Us.v2020.9.9s\\Among.Us.v2020.9.9s\\Among.Us.v2020.9.9s\\Among Us.exe"
+            os.startfile(code)
+        elif 'open chrome' in query:
+            print("executing. . .")
+            code = "C:\\Users\\bhart\\AppData\\Roaming\\Microsoft\\Internet Explorer\\Quick Launch\\User Pinned\\TaskBar\\Google Chrome.lnk"
+            os.startfile(code)
+        elif 'open whatsapp' in query:
+            webbrowser.get(chrome_1).open("web.whatsapp.com")
+        elif'play song' in query:
+            print("executing. . .")
+            music_dir = 'C:\\Users\\bhart\\OneDrive\\Desktop\\music'
+            songs = os.listdir(music_dir)
+            print(songs)
+            os.startfile(os.path.join(music_dir, songs[0]))
+        elif 'play jukebox' in query:
+            print("executing. . .")
+            webbrowser.get(chrome_1).open("youtube.com/watch?v=EiiyYkae33k")
+        elif 'play workout music' in query:
+            print("executing. . .")
+            webbrowser.get(chrome_1).open("youtube.com/watch?v=a1CwygQ13VI")
+        elif'play music on youtube' in query:
+            print("executing. . .")
+            webbrowser.get(chrome_1).open(
+                "youtube.com/watch?v=jTPXwbDtIpA" or "youtube.com/watch?v=7wtfhZwyrcc" or ".youtube.com/watch?v=hT_nvWreIhg", )
+        elif 'time' in query:
+            strTime = datetime.datetime.now().strftime("%H:%M:%S")
+            speak(f"Sir the time is {strTime}")
+            print(strTime)
+        elif 'exit' in query:
+            speak("Nice to talk sir !!!! , see you soon")
+            exit()
+        elif 'open google' in query:
+            print("executing. . .")
+            webbrowser.get(chrome_1).open("google.com")
+        elif 'open youtube' in query:
+            print("executing. . .")
+            webbrowser.get(chrome_1).open("youtube.com")
+        elif'open' in query:
+            speak("searching the web , what to open")
+            keyword = takeCommand()
+            if keyword != '':
+                url2 ="https://google.com/search?q=" + keyword
+                speak("opening" + keyword)
+                webbrowser.get(chrome_1).open(url2)
+
+            
+        elif 'search' in query:
+            speak("searching the web now , please speak what to search")
+            result = takeCommand()
+            if result != '':
+                url1 ="https://google.com/search?q=" + result
+
+                speak("Here are the search results for" + result)
+                webbrowser.get(chrome_1).open(url1)
+                
+            
+        else:
+            speak("Please speak agian")
+            print("UH OH")
