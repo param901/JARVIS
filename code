@@ -7,10 +7,11 @@ import pyttsx3
 import speech_recognition as sr
 import wikipedia
 
-
+# import these first 
 
 
 chrome_1 = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
+# using for webbrowser
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -21,7 +22,7 @@ engine.setProperty('voice', voices[0].id)
 def speak(audio):
     engine.say(audio)
     engine.runAndWait()
-
+#for audio 
 
 def wishMe():
     hour = int(datetime.datetime.now().hour)
@@ -144,6 +145,8 @@ if __name__ == "__main__":
         elif 'open youtube' in query:
             print("executing. . .")
             webbrowser.get(chrome_1).open("youtube.com")
+ # all the commands 
+ 
         elif'open' in query:
             speak("searching the web , what to open")
             keyword = takeCommand()
@@ -162,6 +165,8 @@ if __name__ == "__main__":
                 speak("Here are the search results for" + result)
                 webbrowser.get(chrome_1).open(url1)
                 
+   # for extra things first say search or open whichever to use the speak the thing you want to ask    
+   #modify it as your requirement 
             
         else:
             speak("Please speak agian")
