@@ -1,4 +1,4 @@
-mport pyttsx3
+Import pyttsx3
 import datetime 
 import wikipedia
 import pywhatkit 
